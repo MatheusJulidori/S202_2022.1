@@ -5,7 +5,7 @@ from dataset.pokemon_dataset import dataset
 
 class Database:
     def __init__(self, database, collection):
-        connectionString = "mongodb+srv://root:070400Lucca@inateldb.qm3z6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+        connectionString = "mongodb+srv://root:root@cluster0.wwahw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
         self.clusterConnection = pymongo.MongoClient(
             connectionString,
             tlsAllowInvalidCertificates=True # CASO OCORRA O ERRO [SSL_INVALID_CERTIFICATE]

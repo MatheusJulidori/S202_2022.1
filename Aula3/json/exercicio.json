@@ -1,0 +1,17 @@
+[
+    {
+        "total": 34.980000000000004,
+        "nome": "Cleber Almeida",
+        "desconto": true
+    },
+    {
+        "total": 32.85,
+        "nome": "Marina Santos",
+        "desconto": true
+    },
+    {
+        "total": 9.46,
+        "nome": "Joao Algusto",
+        "desconto": false
+    }
+]
