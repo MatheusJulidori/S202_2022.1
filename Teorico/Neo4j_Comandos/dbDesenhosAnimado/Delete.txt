@@ -1,0 +1,13 @@
+Deletar nó------------------------------------------------------------
+MATCH(d:Dog{nome:"Pluto"}) DETACH DELETE d
+
+****Detach para tirar dos relacionamentos
+
+Deletar Relacionamento------------------------------------------------
+
+MATCH(m:Mouse{nome:"Mickey"})-[nc:NAMORA_COM]->() DELETE nc -> Deleta o relacinamento MICKEY NAMORA_COM MINNIE
+****O RELACIONAMENTO É SEMPRE DIRECIONADO**** Nesse caso, mickey namora minnie, ela n namora ela n
+
+
+Deletar o nó que recebe um relacionamento-----------------------------
+MATCH(m:Mouse{nome:"Mickey"})-[nc:NAMORA_COM]->(n:Node) DELETE n
