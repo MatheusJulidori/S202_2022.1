@@ -1,0 +1,55 @@
+Create(:Band{name:"Metallica",year:1981,genre:"Heavy Metal"}) 
+Create(:Band{name:"Iron Maiden",year:1975,genre:"Heavy Metal"}) 
+Create(:Band{name:"Bon Jovi",year:1983,genre:"Rock"}) 
+
+Create(:Album{name:"Black Album",year:1986,tracks:"12"})
+Create(:Album{name:"Piece of Mind",year:1983,tracks:"9"})
+Create(:Album{name:"Crush",year:2000,tracks:"13"})
+
+Create(:Music{name:"Enter Sandman",duration:'5:30'}) 
+Create(:Music{name:"The Trooper",duration:'4:12'}) 
+Create(:Music{name:"It's my life",duration:'3:45'}) 
+
+Match(b:Band{name:"Metallica"}),(a:Album{name:"Black Album"})
+CREATE (b)-[:OWNS]->(a)
+
+Match(b:Band{name:"Iron Maiden"}),(a:Album{name:"Piece of Mind"})
+CREATE (b)-[:OWNS]->(a)
+
+Match(b:Band{name:"Bon Jovi"}),(a:Album{name:"Crush"})
+CREATE (b)-[:OWNS]->(a)
+
+
+
+Match(m:Music{name:"Enter Sandman"}),(a:Album{name:"Black Album"})
+CREATE (m)-[:ITS_IN]->(a)
+
+Match(m:Music{name:"The Trooper"}),(a:Album{name:"Piece of Mind"})
+CREATE (m)-[:ITS_IN]->(a)
+
+Match(m:Music{name:"It's my life"}),(a:Album{name:"Crush"})
+CREATE (m)-[:ITS_IN]->(a)
+
+
+
+Match(m:Music{name:"Enter Sandman"}),(b:Band{name:"Metallica"})
+CREATE (m)-[:WRITTEN_BY]->(b)
+
+Match(m:Music{name:"The Trooper"}),(b:Band{name:"Iron Maiden"})
+CREATE (m)-[:WRITTEN_BY]->(b)
+
+Match(m:Music{name:"It's my life"}),(b:Band{name:"Bon Jovi"})
+CREATE (m)-[:WRITTEN_BY]->(b)
+
+
+
+Match(b1:Band{genre:"Heavy Metal"}),(b2:Band{genre:"Rock"})
+CREATE (b1)-[:MEDIUM_RELATION]->(b2)
+
+Match(b1:Band{genre:"Heavy Metal"}),(b2:Band{genre:"Rock"})
+CREATE (b2)-[:MEDIUM_RELATION]->(b1)
+
+Match(b:Band{genre:"Heavy Metal"}), Match(b2:Band{genre:"Heavy Metal"})
+CREATE (b)-[:STRONG_RELATION]->(b2)
+
+
