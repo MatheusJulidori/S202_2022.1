@@ -1,35 +1,86 @@
-from helper.write_a_json import write_a_json
+from pprintpp import pprint as pp
 from db.database import Graph
 
-db = Graph(uri='bolt://35.172.240.205:7687', user='neo4j', password='humps-child-needle')
 
-# Create Entity's
-db.execute_query('CREATE (n:Person {name:"John", age:30})')
-db.execute_query('CREATE (n:Person {name:"Mary", age:25})')
-db.execute_query('CREATE (n:Person {name:"Peter", age:35})')
+class PersonDAO(object):
+    def __init__(self):
+        self.db = Graph(uri='bolt://52.91.64.64:7687',
+                        user='neo4j', password='board-apparatuses-smashes')
 
-# Create Relation's
-db.execute_query('MATCH (n:Person) WHERE n.name = "John" CREATE (n)-[:KNOWS]->(m:Person {name:"Mary", age:25})')
-db.execute_query('MATCH (n:Person) WHERE n.name = "John" CREATE (n)-[:KNOWS]->(m:Person {name:"Peter", age:35})')
+    def create(self, person):
+        return self.db.execute_query('CREATE (n:Person {name:$name, age:$age}) return n',
+                                     {'name': person['name'], 'age': person['age']})
 
-# Read Entity's
-aux = db.execute_query('MATCH (n) RETURN n')
-write_a_json(aux, 'read')
+    def read_by_name(self, person):
+        return self.db.execute_query('MATCH (n:Person {name:$name}) RETURN n',
+                                     {'name': person['name']})
+    
+    def read_all_nodes(self):
+        return self.db.execute_query('MATCH (n) RETURN n')
 
-# Read Relation's
-aux = db.execute_query('MATCH (n)-[r]->(m) RETURN n, r, m')
-write_a_json(aux, 'read')
+    def update_age(self, person):
+        return self.db.execute_query('MATCH (n:Person {name:$name}) SET n.age = $age RETURN n',
+                                     {'name': person['name'], 'age': person['age']})
 
-# Update Entity's
-db.execute_query('MATCH (n:Person {name:"John"}) SET n.age = 31')
+    def delete(self, person):
+        return self.db.execute_query('MATCH (n:Person {name:$name}) DELETE n',
+                                     {'name': person['name']})
 
-# Update Relation's
-db.execute_query('MATCH (n:Person {name:"John"})-[r]->(m:Person {name:"Mary"}) SET r.since = "2018-01-01"')
+    def delete_all_nodes(self):
+        return self.db.execute_query('MATCH (n) DETACH DELETE n')
 
-# Delete Entity's
-db.execute_query('MATCH (n:Person {name:"Peter"}) DELETE n')
+    def create_relation(self, person1, person2, year):
+        return self.db.execute_query('MATCH (n:Person {name:$name1}), (m:Person {name:$name2}) CREATE (n)-[r:KNOWS{year: $year}]->(m) RETURN n, r, m',
+                                     {'name1': person1['name'], 'name2': person2['name'], 'year': year})
 
-# Delete Relation's
-db.execute_query('MATCH (n:Person {name:"John"})-[r]->(m:Person {name:"Peter"}) DELETE r')
+    def read_relation(self, person1, person2):
+        return self.db.execute_query('MATCH (n:Person {name:$name1})-[r]->(m:Person {name:$name2}) RETURN n, r, m',
+                                     {'name1': person1['name'], 'name2': person2['name']})
 
+def divider():
+    print('\n' + '-' * 80 + '\n')
 
+dao = PersonDAO()
+
+while 1:    
+    option = input('1. Create\n2. Read\n3. Update\n4. Delete\n')
+
+    if option == '1':
+        name = input('  Name: ')
+        age = input('   Age: ')
+        person = {
+            'name': name,
+            'age': age
+        }
+        aux = dao.create(person)
+        divider()
+
+    elif option == '2':
+        aux = dao.read_all_nodes()
+        pp(aux)
+        divider()
+
+    elif option == '3':
+        name = input('  Name: ')
+        age = input('   Age: ')
+        person = {
+            'name': name,
+            'age': age
+        }
+        
+        aux = dao.update_age(person)
+        divider()
+
+    elif option == '4':
+        name = input('  Name: ')
+        person = {
+            'name': name
+        }
+        
+        aux = dao.delete(person)
+        divider()
+
+    else:
+        break
+
+dao.db.close()
