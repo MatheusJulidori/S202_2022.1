@@ -1,0 +1,83 @@
+GERANDO NÓS
+
+
+//Avós
+Create(p:Person{name:"Carlos Julidori",age:71,gender:'M'}) SET p:Engenheiro;
+Create(p:Person{name:"Mirtes Julidori",age:68,gender:'F'}) SET p:Professor;
+
+//Filhos/Pais
+Create(p:Person{name:"Ana Paula Julidori",age:44,gender:'F'}) SET p:Engenheiro;
+Create(p:Person{name:"Ana Flávia Julidori",age:43,gender:'F'}) SET p:Dentista;
+Create(p:Person{name:"Cadu Julidori",age:40,gender:'M'}) SET p:Advogado;
+Create(p:Person{name:"Tina Julidori",age:38,gender:'F'}) SET p:Engenheiro;
+
+//Netos/filhos
+
+Create(p:Person{name:"Matheus Julidori",age:22,gender:'M'}) SET p:Desenvolvedor;
+Create(p:Person{name:"Miguel Julidori",age:13,gender:'M'}) SET p:Criança;
+Create(p:Person{name:"Joana Julidori",age:13,gender:'F'}) SET p:Criança;
+Create(p:Person{name:"Laura Osório",age:13,gender:'F'}) SET p:Criança;
+Create(p:Person{name:"Pedro Julidori Magalhães",age:11,gender:'M'}) SET p:Criança;
+Create(p:Person{name:"Marina Julidori Magalhães",age:9,gender:'F'}) SET p:Criança;
+Create(p:Person{name:"Luka Julidori Downey",age:8,gender:'M'}) SET p:Criança;
+Create(p:Person{name:"Luna Julidori Downey",age:5,gender:'F'}) SET p:Criança;
+Create(p:Person{name:"Elisa de Andrade",age:10,gender:'F'}) SET p:Criança;
+
+//Agregados
+Create(p:Person{name:"Brad Downey",age:43,gender:'M'}) SET p:Desenvolvedor;
+Create(p:Person{name:"Cássio Magalhães",age:44,gender:'M'}) SET p:Gerente;
+Create(p:Person{name:"Chris Osório",age:41,gender:'F'}) SET p:Contador;
+Create(p:Person{name:"Ullysses de Andrade",age:38,gender:'M'}) SET p:Engenheiro;
+Create(p:Person{name:"Leticia Miquelin",age:20,gender:'F'}) SET p:Estudante;
+
+
+GERANDO RELACIONAMENTOS
+
+
+--------------------Casados--------------------------
+MATCH(p1:Person{name:'Carlos Julidori'}),(p2:Person{name:'Mirtes Julidori'}) CREATE (p1)-[:CASADO_COM{desde:'1976'}]->(p2);
+MATCH(p1:Person{name:'Ana Paula Julidori'}),(p2:Person{name:'Brad Downey'}) CREATE (p1)-[:CASADO_COM{desde:'2017'}]->(p2);
+MATCH(p1:Person{name:'Tina Julidori'}),(p2:Person{name:'Ullysses de Andrade'}) CREATE (p1)-[:CASADO_COM{desde:'2018'}]->(p2);
+MATCH(p1:Person{name:'Ana Flávia Julidori'}),(p2:Person{name:'Cássio Magalhães'}) CREATE (p1)-[:CASADO_COM{desde:'2005'}]->(p2);
+
+-------------------Filhos----------------------------
+MATCH(p1:Person{name:'Carlos Julidori'}),(p2:Person{name:'Ana Paula Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Mirtes Julidori'}),(p2:Person{name:'Ana Paula Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Carlos Julidori'}),(p2:Person{name:'Ana Flávia Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Mirtes Julidori'}),(p2:Person{name:'Ana Flávia Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Carlos Julidori'}),(p2:Person{name:'Cadu Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Mirtes Julidori'}),(p2:Person{name:'Cadu Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Carlos Julidori'}),(p2:Person{name:'Tina Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Mirtes Julidori'}),(p2:Person{name:'Tina Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+
+MATCH(p1:Person{name:'Ana Paula Julidori'}),(p2:Person{name:'Luka Julidori Downey'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Brad Downey'}),(p2:Person{name:'Luna Julidori Downey'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Ana Paula Julidori'}),(p2:Person{name:'Luna Julidori Downey'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Brad Downey'}),(p2:Person{name:'Luka Julidori Downey'}) CREATE (p1)-[:PAI_DE]->(p2);
+
+MATCH(p1:Person{name:'Ana Flávia Julidori'}),(p2:Person{name:'Pedro Julidori Magalhães'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Ana Flávia Julidori'}),(p2:Person{name:'Marina Julidori Magalhães'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Cássio Magalhães'}),(p2:Person{name:'Pedro Julidori Magalhães'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Cássio Magalhães'}),(p2:Person{name:'Marina Julidori Magalhães'}) CREATE (p1)-[:PAI_DE]->(p2);
+
+MATCH(p1:Person{name:'Cadu Julidori'}),(p2:Person{name:'Miguel Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Cadu Julidori'}),(p2:Person{name:'Joana Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Chris Osório'}),(p2:Person{name:'Laura Osório'}) CREATE (p1)-[:PAI_DE]->(p2);
+
+MATCH(p1:Person{name:'Tina Julidori'}),(p2:Person{name:'Matheus Julidori'}) CREATE (p1)-[:PAI_DE]->(p2);
+MATCH(p1:Person{name:'Ullysses de Andrade'}),(p2:Person{name:'Elisa de Andrade'}) CREATE (p1)-[:PAI_DE]->(p2);
+
+
+-------------------Namorados----------------------------
+MATCH(p1:Person{name:'Matheus Julidori'}),(p2:Person{name:'Leticia Miquelin'}) CREATE (p1)-[:NAMORA_COM{desde:'2022'}]->(p2);
+MATCH(p1:Person{name:'Cadu Julidori'}),(p2:Person{name:'Chris Osório'}) CREATE (p1)-[:NAMORA_COM{desde:'2017'}]->(p2);
+
+
+
+------------------Padrasto/Madrasta----------------------
+MATCH(p1:Person{name:'Chris Osório'}),(p2:Person{name:'Miguel Julidori'}) CREATE (p1)-[:MADRASTA_PADRASTO]->(p2);
+MATCH(p1:Person{name:'Chris Osório'}),(p2:Person{name:'Joana Julidori'}) CREATE (p1)-[:MADRASTA_PADRASTO]->(p2);
+MATCH(p1:Person{name:'Cadu Julidori'}),(p2:Person{name:'Laura Osório'}) CREATE (p1)-[:MADRASTA_PADRASTO]->(p2);
+
+MATCH(p1:Person{name:'Tina Julidori'}),(p2:Person{name:'Elisa de Andrade'}) CREATE (p1)-[:MADRASTA_PADRASTO]->(p2);
+MATCH(p1:Person{name:'Ullysses de Andrade'}),(p2:Person{name:'Matheus Julidori'}) CREATE (p1)-[:MADRASTA_PADRASTO]->(p2);
