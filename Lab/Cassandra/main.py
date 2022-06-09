@@ -5,6 +5,7 @@ db = Database(client_id='fsUcCUiLaEHJFfKbExIBLuuW',
     client_secret='KZ88Ecpja.mGSYwZ8mUzfroZQEw62LHMhRmrhnS9TqLCi_HZO91qgMxOMyXaogi.bKTWhu-LhLhOTB,cFRNeCCR8w81ICwApxgvwb.,09JS2I1lm6eUrgLdrgKOmizNW',
     keyspace='instagram')
 
-db.select_stories()
+#db.insert_stories(1, "matheusjulidori", "2022-06-17 16:00:00", 8, "image12.jpg", "0mo0d3000000000ns", ["user1"])
 
+db.select_stories()
 
