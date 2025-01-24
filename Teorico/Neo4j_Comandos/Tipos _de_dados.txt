@@ -1,8 +1,0 @@
-Tipos de dados do Neo4J
-
-Boolean true,false
-Text string
-Numbers 123,45.6
-Point 2D,3D, LatLon,LatLonHeight
-Temporal Date,Time,DateTime,LocalTime,LocalDateTime,Duration
-List ['must','have','data','of','same',type']

@@ -1,8 +1,0 @@
-1 - Match(:Dog)-[r]->(:Person) return(r)
-
-2 - Match(p:Person) WHERE p.sexo='F' return(p.Nome)
-
-3 - Match(p:Person)-[fp:FAZ_PARTE]->(s:Serie)->[p:PERTENCE]->(c:Company) WHERE c.Nome = 'Walt Disney' AND fp.protagonista = False
-
-4 - Match (c:Company) WHERE c.subsidiarias IN ['PIXAR']
-    SET c.fundador = 'Walter Elias Disney'
